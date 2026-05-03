@@ -1,34 +1,41 @@
 import { useState } from 'react'
+import LandingPage from './components/LandingPage'
+import Home from './components/Home'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentPage, setCurrentPage] = useState('landing')
+  const [mode, setMode] = useState(null)
+  const [group, setGroup] = useState(null)
+
+  const handleStartLanding = () => {
+    setCurrentPage('home')
+  }
+
+  const handleStartHome = (selectedMode, selectedGroup) => {
+    setMode(selectedMode)
+    setGroup(selectedGroup)
+    setCurrentPage('training')
+  }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold text-gray-800 mb-4">NekoMoji</h1>
-        <p className="text-lg text-gray-600 mb-4">Learn Japanese characters with fun! 🎌</p>
-        
-        {/* Test Tailwind */}
-        <div className="mb-6 p-4 bg-blue-500 text-white rounded-lg">
-          <p>✅ Tailwind CSS is working!</p>
+    <>
+      {currentPage === 'landing' && <LandingPage onStart={handleStartLanding} />}
+      {currentPage === 'home' && <Home onStart={handleStartHome} />}
+      {currentPage === 'training' && (
+        <div className="flex items-center justify-center min-h-screen bg-gray-50">
+          <div className="text-center">
+            <h1 className="text-3xl font-bold text-gray-800">Training Mode</h1>
+            <p className="text-gray-600 mt-4">Mode: {mode} | Group: {group}</p>
+            <button
+              onClick={() => setCurrentPage('home')}
+              className="mt-6 px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
+            >
+              Back to Home
+            </button>
+          </div>
         </div>
-
-        {/* Test Google Fonts - Japanese characters */}
-        <div className="mb-6 p-4 bg-purple-100 rounded-lg">
-          <p className="text-2xl font-bold text-purple-800">あいうえお</p>
-          <p className="text-sm text-gray-600">✅ Google Fonts (Noto Sans JP) is loaded!</p>
-        </div>
-
-        {/* Counter button */}
-        <button
-          onClick={() => setCount((count) => count + 1)}
-          className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
-        >
-          Count is {count}
-        </button>
-      </div>
-    </div>
+      )}
+    </>
   )
 }
 

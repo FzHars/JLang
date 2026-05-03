@@ -1,0 +1,62 @@
+import { motion } from "motion/react";
+import { Sparkles, ArrowRight } from "lucide-react";
+
+export default function LandingPage({ onStart }) {
+   // const [emojiIndex, setEmojiIndex] = useState(0);
+  // const emojis = ["😺", "😸"];
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setEmojiIndex((prev) => (prev + 1) % emojis.length);
+  //   }, 500);
+  //   return () => clearInterval(interval);
+  // }, []);
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      <motion.div
+        className="text-center px-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <motion.h1
+          className="text-5xl font-bold font-sans text-gray-800 mb-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}  
+          transition={{ delay: 0.3, duration: 0.6 }}
+        >
+          NekoMoji
+        </motion.h1>
+        <motion.p
+          className="text-xl mb-8 text-indigo-600"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+        >
+          {/* Learn Japanese characters with fun! {emojis[emojiIndex]} */}
+          Learn Japanese characters with fun! 😺 
+        </motion.p>
+        <motion.p
+          className="text-lg text-gray-500 mb-12 max-w-[30rem] mx-auto"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.6 }}
+        >
+         Master hiragana and katakana through interactive flashcards and
+          quizzes. Inspired by the methodologies of KanaDojo and Duolingo.{" "}
+          <br />
+          Start your journey to fluency today!
+        </motion.p>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={onStart}
+          className="group relative inline-flex items-center gap-3 px-8 py-4 bg-indigo-600 text-white rounded-2xl font-semibold text-lg shadow-xl shadow-indigo-100 hover:bg-indigo-700 transition-all"
+        >
+          <span>Start Learning</span>
+          <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+        </motion.button>
+      </motion.div> 
+    </div>
+  );
+}
