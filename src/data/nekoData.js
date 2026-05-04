@@ -1,10 +1,10 @@
 export const nekoData = [
-  // Hiragana - Vowels
-  { id: 1, char: 'あ', romanization: 'a', type: 'hiragana', group: 'vowels' },
-  { id: 2, char: 'い', romanization: 'i', type: 'hiragana', group: 'vowels' },
-  { id: 3, char: 'う', romanization: 'u', type: 'hiragana', group: 'vowels' },
-  { id: 4, char: 'え', romanization: 'e', type: 'hiragana', group: 'vowels' },
-  { id: 5, char: 'お', romanization: 'o', type: 'hiragana', group: 'vowels' },
+  // Hiragana - Seion (清音)
+  { id: 1, char: 'あ', romanization: 'a', type: 'hiragana', group: 'seion' },
+  { id: 2, char: 'い', romanization: 'i', type: 'hiragana', group: 'seion' },
+  { id: 3, char: 'う', romanization: 'u', type: 'hiragana', group: 'seion' },
+  { id: 4, char: 'え', romanization: 'e', type: 'hiragana', group: 'seion' },
+  { id: 5, char: 'お', romanization: 'o', type: 'hiragana', group: 'seion' },
 
   // Hiragana - Ka
   { id: 6, char: 'か', romanization: 'ka', type: 'hiragana', group: 'ka' },
@@ -65,12 +65,12 @@ export const nekoData = [
   { id: 45, char: 'を', romanization: 'wo', type: 'hiragana', group: 'wa' },
   { id: 46, char: 'ん', romanization: 'n', type: 'hiragana', group: 'wa' },
 
-  // Katakana - Vowels
-  { id: 47, char: 'ア', romanization: 'a', type: 'katakana', group: 'vowels' },
-  { id: 48, char: 'イ', romanization: 'i', type: 'katakana', group: 'vowels' },
-  { id: 49, char: 'ウ', romanization: 'u', type: 'katakana', group: 'vowels' },
-  { id: 50, char: 'エ', romanization: 'e', type: 'katakana', group: 'vowels' },
-  { id: 51, char: 'オ', romanization: 'o', type: 'katakana', group: 'vowels' },
+  // Katakana - Seion (清音)
+  { id: 47, char: 'ア', romanization: 'a', type: 'katakana', group: 'seion' },
+  { id: 48, char: 'イ', romanization: 'i', type: 'katakana', group: 'seion' },
+  { id: 49, char: 'ウ', romanization: 'u', type: 'katakana', group: 'seion' },
+  { id: 50, char: 'エ', romanization: 'e', type: 'katakana', group: 'seion' },
+  { id: 51, char: 'オ', romanization: 'o', type: 'katakana', group: 'seion' },
 
   // Katakana - Ka
   { id: 52, char: 'カ', romanization: 'ka', type: 'katakana', group: 'ka' },
