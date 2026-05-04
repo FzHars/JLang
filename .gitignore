@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 .kiro
+HOME_REFACTORING.md
 *.local
 
 # Editor directories and files
