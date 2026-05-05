@@ -1,6 +1,6 @@
 import { motion } from "framer-motion"; 
 import { Sparkles, ArrowRight } from "lucide-react";
-import logoImg from "../assets/neko1.png"
+import logoImg from "../assets/neko1.svg"
 
 export default function LandingPage({ onStart }) {
   // const [emojiIndex, setEmojiIndex] = useState(0);
