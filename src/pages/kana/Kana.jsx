@@ -1,4 +1,3 @@
-// Stub — full implementation in task 5
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 

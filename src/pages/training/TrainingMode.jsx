@@ -1,4 +1,3 @@
-// Stub — full implementation in task 7
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
@@ -12,29 +11,55 @@ export default function TrainingMode() {
   const navigate = useNavigate();
 
   return (
-    <motion.div
-      variants={pageVariants}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-    >
-      <p>TrainingMode stub</p>
-      <button
-        onClick={() =>
-          navigate("/score", {
-            state: {
-              score: {
-                correct: 0,
-                total: 0,
-                mode: "hiragana",
-                groups: ["seion"],
-              },
-            },
-          })
-        }
+    <>
+    {/* optional if you dont have header */}
+      <motion.div
+        variants={pageVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
       >
-        Go to Score
-      </button>
-    </motion.div>
+        <button
+          onClick={() =>
+            navigate("/kana", {
+              // state: {
+              //   score: {
+              //     correct: 0,
+              //     total: 0,
+              //     mode: "hiragana",
+              //     groups: ["seion"],
+              //   },
+              // },
+            })
+          }
+        >
+          Back to Kana
+        </button>
+      </motion.div>
+      <motion.div
+        variants={pageVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+      >
+        <p>TrainingMode stub</p>
+        <button
+          onClick={() =>
+            navigate("/score", {
+              state: {
+                score: {
+                  correct: 0,
+                  total: 0,
+                  mode: "hiragana",
+                  groups: ["seion"],
+                },
+              },
+            })
+          }
+        >
+          Go to Score
+        </button>
+      </motion.div>
+    </>
   );
 }

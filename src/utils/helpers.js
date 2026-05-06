@@ -17,9 +17,7 @@ const VALID_GROUPS = [
   "wa",
 ];
 
-/**
- * Filters nekoData by character type and group.
- *
+/** Filters nekoData by character type and group.
  * @param {Array} data - The full character dataset (e.g. nekoData)
  * @param {string} type - "hiragana" or "katakana"
  * @param {string} group - One of the 10 valid group names
@@ -29,23 +27,19 @@ export function filterByGroup(data, type, group) {
   return data.filter((c) => c.type === type && c.group === group);
 }
 
-/**
- * Encodes training parameters into a URLSearchParams query string.
- *
+/** Encodes training parameters into a URLSearchParams query string.
  * @param {string} mode - "hiragana" or "katakana"
  * @param {string[]} groups - Array of group name strings
  * @returns {string} A URLSearchParams-compatible string, e.g. "mode=hiragana&groups=seion,ka"
  */
 export function encodeTrainingParams(mode, groups) {
-  const params = new URLSearchParams();
-  params.set("mode", mode);
-  params.set("groups", groups.join(","));
-  return params.toString();
+  const parameters = new URLSearchParams();
+  parameters.set("mode", mode);
+  parameters.set("groups", groups.join(","));
+  return parameters.toString();
 }
 
-/**
- * Decodes training parameters from a URLSearchParams instance.
- *
+/** Decodes training parameters from a URLSearchParams instance. 
  * @param {URLSearchParams} searchParams - A URLSearchParams instance
  * @returns {{ mode: string, groups: string[] }} Decoded mode and groups array
  */
@@ -57,8 +51,7 @@ export function decodeTrainingParams(searchParams) {
 }
 
 /**
- * Validates training parameters.
- *
+ * Validates training parameters. 
  * Returns true only when:
  * - mode is "hiragana" or "katakana"
  * - groups is non-empty

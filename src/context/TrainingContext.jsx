@@ -3,7 +3,6 @@ import { createContext, useContext, useState } from "react";
 /**
  * Context for holding ephemeral training session state.
  * Avoids prop drilling through the training flow.
- *
  * Session shape:
  * {
  *   characters:   KanaCharacter[],  // shuffled subset from nekoData
@@ -18,7 +17,6 @@ const TrainingContext = createContext(null);
 /**
  * Provider component that holds the training session state.
  * Wrap the app (or the relevant subtree) with this provider.
- *
  * @param {{ children: React.ReactNode }} props
  */
 export function TrainingProvider({ children }) {
@@ -34,7 +32,6 @@ export function TrainingProvider({ children }) {
 /**
  * Hook to access the training context value.
  * Returns { session, setSession }.
- *
  * @returns {{ session: object|null, setSession: Function }}
  */
 export function useTraining() {
