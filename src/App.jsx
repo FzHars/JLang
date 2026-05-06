@@ -11,7 +11,7 @@ function App() {
   return ( 
     <>
       <StrictMode>
-        <LandingPage/>
+        <LandingPage onStartLearning={() => alert('Start learning!')} />
       </StrictMode>
     </>
   )
