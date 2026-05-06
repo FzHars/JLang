@@ -1,20 +1,23 @@
-import { StrictMode, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
-import LandingPage from './landingpage/LandingPage'
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+import LandingPage from "./pages/landing/LandingPage";
+import Kana from "./pages/kana/Kana";
+import TrainingMode from "./pages/training/TrainingMode";
+import ScoreScreen from "./pages/score/ScoreScreen";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const location = useLocation();
 
-  return ( 
-    <>
-      <StrictMode>
-        <LandingPage onStartLearning={() => alert('Start learning!')} />
-      </StrictMode>
-    </>
-  )
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/kana" element={<Kana />} />
+        <Route path="/training" element={<TrainingMode />} />
+        <Route path="/score" element={<ScoreScreen />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </AnimatePresence>
+  );
 }
-
-export default App

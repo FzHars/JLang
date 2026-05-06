@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 .kiro
+dsave
 *.local
 HELPERS_DOCUMENTATION.md
 HOME_REFACTORING.md
