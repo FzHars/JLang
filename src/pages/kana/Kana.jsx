@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { encodeTrainingParams } from "../../utils/helpers.js";
 import nekoData from "../../data/nekoData.js";
-import HiraganaAccordion from "./HiraganaAccordion.jsx";
 import ActionBar from "../../components/ActionBar.jsx";
+import KanaAccordion from "./KanaAccordion.jsx";
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -25,7 +25,7 @@ export default function Kana() {
   const navigate = useNavigate();
 
   // =========================================================================
-  // State Management
+  // State Management hehe
   const [expandedTypes, setExpandedTypes] = useState({
     hiragana: true,
     katakana: false,
@@ -42,9 +42,8 @@ export default function Kana() {
   });
 
   // =========================================================================
-  // Handlers
+  // Handlersssss
   // =========================================================================
-  // NEW
   const handleTypeToggle = (type) => {
     setExpandedTypes((prev) => ({
       ...prev,
@@ -111,8 +110,8 @@ export default function Kana() {
           </p>
         </div>
         {/* Accordion Grid */} 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <HiraganaAccordion
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+          <KanaAccordion
             type="hiragana"
             isExpanded={expandedTypes.hiragana}
             selectedGroups={selectedGroups.hiragana}
@@ -124,7 +123,7 @@ export default function Kana() {
             }
           />
 
-          {/* <KatakanaAccordion
+          <KanaAccordion
             type="katakana"
             isExpanded={expandedTypes.katakana}
             selectedGroups={selectedGroups.katakana}
@@ -134,27 +133,20 @@ export default function Kana() {
             onCategoryToggle={(catId) =>
               handleCategoryToggle("katakana", catId)
             }
-          /> */}
+          />
         </div>
         {/* Spacer so content isn't hidden behind fixed ActionBar */}
         <div className="h-24" />
       </div>
 
-        {/* ActionBar sekarang butuh tau mana type yang active atau show both? */}
         <ActionBar
           selectedGroupsHiragana={selectedGroups.hiragana}
-          // selectedGroupsKatakana={selectedGroups.katakana}
+          selectedGroupsKatakana={selectedGroups.katakana}
           totalSelectedCharsHiragana={totalSelectedCharsHiragana}
-          // totalSelectedCharsKatakana={totalSelectedCharsKatakana}
+          totalSelectedCharsKatakana={totalSelectedCharsKatakana}
           onStartHiragana={() => handleStart("hiragana")}
-          // onStartKatakana={() => handleStart("katakana")}
-        />
-      {/* Fixed Bottom Action Bar */}
-      {/* <ActionBar
-        selectedGroups={selectedGroups}
-        totalSelectedChars={totalSelectedChars}
-        onStart={handleStart}
-      /> */}
+          onStartKatakana={() => handleStart("katakana")}
+        /> 
     </motion.div>
   );
 }
