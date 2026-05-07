@@ -1,14 +1,96 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { encodeTrainingParams } from "../../utils/helpers.js";
+import nekoData from "../../data/nekoData.js";
+import HiraganaAccordion from "./HiraganaAccordion.jsx";
+import ActionBar from "../../components/ActionBar.jsx";
 
+// ---------------------------------------------------------------------------
+// Constants
+// ---------------------------------------------------------------------------
+
+// Page-level Framer Motion variants
 const pageVariants = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0, transition: { duration: 0.4 } },
   exit: { opacity: 0, y: -20, transition: { duration: 0.25 } },
 };
 
+// ---------------------------------------------------------------------------
+// Component
+// ---------------------------------------------------------------------------
+
 export default function Kana() {
   const navigate = useNavigate();
+
+  // =========================================================================
+  // State Management
+  const [expandedTypes, setExpandedTypes] = useState({
+    hiragana: true,
+    katakana: false,
+  });
+
+  const [expandedCategories, setExpandedCategories] = useState({
+    hiragana: ["base"],
+    katakana: [],
+  });
+
+  const [selectedGroups, setSelectedGroups] = useState({
+    hiragana: [],
+    katakana: [],
+  });
+
+  // =========================================================================
+  // Handlers
+  // =========================================================================
+  // NEW
+  const handleTypeToggle = (type) => {
+    setExpandedTypes((prev) => ({
+      ...prev,
+      [type]: !prev[type],
+    }));
+  };
+
+  const handleCategoryToggle = (type, catId) => {
+    setExpandedCategories((prev) => ({
+      ...prev,
+      [type]: prev[type].includes(catId)
+        ? prev[type].filter((id) => id !== catId)
+        : [...prev[type], catId],
+    }));
+  };
+
+  const handleGroupToggle = (type, group) => {
+    setSelectedGroups((prev) => ({
+      ...prev,
+      [type]: prev[type].includes(group)
+        ? prev[type].filter((g) => g !== group)
+        : [...prev[type], group],
+    }));
+  };
+
+  const handleStart = (type) => {
+    if (selectedGroups[type].length === 0) return;
+    const params = encodeTrainingParams(type, selectedGroups[type]);
+    navigate(`/training?${params}`);
+  };
+
+  // =========================================================================
+  // Derived Values
+  // =========================================================================
+
+  // Count total selected characters
+  const totalSelectedCharsHiragana = nekoData.filter(
+    (c) => c.type === "hiragana" && selectedGroups.hiragana.includes(c.group),
+  ).length;
+
+  const totalSelectedCharsKatakana = nekoData.filter(
+    (c) => c.type === "katakana" && selectedGroups.katakana.includes(c.group),
+  ).length;
+  // =========================================================================
+  // Render
+  // =========================================================================
 
   return (
     <motion.div
@@ -16,11 +98,63 @@ export default function Kana() {
       initial="initial"
       animate="animate"
       exit="exit"
+      className="min-h-screen pt-8 pb-32 px-4 md:px-6 max-w-6xl mx-auto bg-green-50"
     >
-      <p>Kana stub</p>
-      <button onClick={() => navigate("/training?mode=hiragana&groups=seion")}>
-        Go to Training
-      </button>
+      <div className="space-y-8">
+        {/* Page Heading */}
+        <div className="space-y-3 text-center">
+          <h2 className="text-4xl font-bold font-sans tracking-tight text-green-900">
+            Training Config
+          </h2>
+          <p className="text-green-700 text-lg">
+            Pick the characters you want to practice.
+          </p>
+        </div>
+        {/* Accordion Grid */} 
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <HiraganaAccordion
+            type="hiragana"
+            isExpanded={expandedTypes.hiragana}
+            selectedGroups={selectedGroups.hiragana}
+            expandedCategories={expandedCategories.hiragana}
+            onTypeToggle={() => handleTypeToggle("hiragana")}
+            onGroupToggle={(group) => handleGroupToggle("hiragana", group)}
+            onCategoryToggle={(catId) =>
+              handleCategoryToggle("hiragana", catId)
+            }
+          />
+
+          {/* <KatakanaAccordion
+            type="katakana"
+            isExpanded={expandedTypes.katakana}
+            selectedGroups={selectedGroups.katakana}
+            expandedCategories={expandedCategories.katakana}
+            onTypeToggle={() => handleTypeToggle("katakana")}
+            onGroupToggle={(group) => handleGroupToggle("katakana", group)}
+            onCategoryToggle={(catId) =>
+              handleCategoryToggle("katakana", catId)
+            }
+          /> */}
+        </div>
+        {/* Spacer so content isn't hidden behind fixed ActionBar */}
+        <div className="h-24" />
+      </div>
+
+        {/* ActionBar sekarang butuh tau mana type yang active atau show both? */}
+        <ActionBar
+          selectedGroupsHiragana={selectedGroups.hiragana}
+          // selectedGroupsKatakana={selectedGroups.katakana}
+          totalSelectedCharsHiragana={totalSelectedCharsHiragana}
+          // totalSelectedCharsKatakana={totalSelectedCharsKatakana}
+          onStartHiragana={() => handleStart("hiragana")}
+          // onStartKatakana={() => handleStart("katakana")}
+        />
+      {/* Fixed Bottom Action Bar */}
+      {/* <ActionBar
+        selectedGroups={selectedGroups}
+        totalSelectedChars={totalSelectedChars}
+        onStart={handleStart}
+      /> */}
     </motion.div>
   );
 }

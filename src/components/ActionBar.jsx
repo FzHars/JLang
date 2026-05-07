@@ -13,10 +13,11 @@ import { motion } from "framer-motion";
  */
 export default function ActionBar({
   selectedGroups,
-  totalSelectedChars,
+  selectedGroupsHiragana,
+  totalSelectedCharsHiragana,
   onStart,
 }) {
-  const isValid = selectedGroups.length > 0;
+  const isValid = selectedGroupsHiragana.length > 0;
 
   return (
     <motion.div
@@ -31,10 +32,10 @@ export default function ActionBar({
           {isValid ? (
             <div className="space-y-1">
               <p className="text-sm font-bold text-green-900">
-                {selectedGroups.length} group{selectedGroups.length !== 1 ? "s" : ""} selected
+                {selectedGroupsHiragana.length} group{selectedGroupsHiragana.length !== 1 ? "s" : ""} selected
               </p>
               <p className="text-xs text-green-600">
-                {totalSelectedChars} character{totalSelectedChars !== 1 ? "s" : ""} to practice
+                {totalSelectedCharsHiragana} character{totalSelectedCharsHiragana !== 1 ? "s" : ""} to practice
               </p>
             </div>
           ) : (
