@@ -20,47 +20,30 @@ export default function ActionBar({
   selectedGroupsKatakana,
   totalSelectedCharsHiragana,
   totalSelectedCharsKatakana,
-  onStartHiragana,
-  onStartKatakana,
+  onStart,
 }) {
-  // Render section hanya kalo ada yang dipilih
-  const hiraganaSection = selectedGroupsHiragana.length > 0 && (
-    <div className="flex items-center justify-between gap-4">
-      <div className="flex-1">
-        <p className="text-sm font-bold text-green-900">
-          Hiragana: {selectedGroupsHiragana.length} group{selectedGroupsHiragana.length !== 1 ? "s" : ""}
-        </p>
-        <p className="text-xs text-green-600">
-          {totalSelectedCharsHiragana} character{totalSelectedCharsHiragana !== 1 ? "s" : ""} to practice
-        </p>
-      </div>
-      <button
-        onClick={onStartHiragana}
-        className="px-6 py-2.5 rounded-xl font-bold text-white bg-green-600 hover:bg-green-700 shadow-lg shadow-green-600/50 active:scale-95"
-      >
-        Start
-      </button>
-    </div>
-  );
+  const hasHiragana = selectedGroupsHiragana.length > 0;
+  const hasKatakana = selectedGroupsKatakana.length > 0;
 
-  const katakanaSection = selectedGroupsKatakana.length > 0 && (
-    <div className="flex items-center justify-between gap-4">
-      <div className="flex-1">
-        <p className="text-sm font-bold text-green-900">
-          Katakana: {selectedGroupsKatakana.length} group{selectedGroupsKatakana.length !== 1 ? "s" : ""}
-        </p>
-        <p className="text-xs text-green-600">
-          {totalSelectedCharsKatakana} character{totalSelectedCharsKatakana !== 1 ? "s" : ""} to practice
-        </p>
-      </div>
-      <button
-        onClick={onStartKatakana}
-        className="px-6 py-2.5 rounded-xl font-bold text-white bg-green-600 hover:bg-green-700 shadow-lg shadow-green-600/50 active:scale-95"
-      >
-        Start
-      </button>
-    </div>
-  );
+  // Determine label and total
+  let label, totalChars, groupsCount;
+
+  if (hasHiragana && hasKatakana) {
+    label = "Hiragana & Katakana";
+    totalChars = totalSelectedCharsHiragana + totalSelectedCharsKatakana;
+    groupsCount = selectedGroupsHiragana.length + selectedGroupsKatakana.length;
+  } else if (hasHiragana) {
+    label = "Hiragana";
+    totalChars = totalSelectedCharsHiragana;
+    groupsCount = selectedGroupsHiragana.length;
+  } else if (hasKatakana) {
+    label = "Katakana";
+    totalChars = totalSelectedCharsKatakana;
+    groupsCount = selectedGroupsKatakana.length;
+  } else {
+    // No selection
+    return null;
+  }
 
   return (
     <motion.div
@@ -69,25 +52,24 @@ export default function ActionBar({
       transition={{ delay: 0.2, duration: 0.3 }}
       className="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-green-200 shadow-2xl shadow-green-100/50"
     >
-      <div className="max-w-6xl mx-auto px-4 md:px-6 py-6 space-y-4">
-        {hiraganaSection}
-        {hiraganaSection && katakanaSection && <div className="h-px bg-green-200 opacity-50" />}
-        {katakanaSection}
+      <div className="max-w-6xl mx-auto px-4 md:px-6 py-6">
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex-1">
+            <p className="text-sm font-bold text-green-900">
+              {label}: {groupsCount} group{groupsCount !== 1 ? "s" : ""}
+            </p>
+            <p className="text-xs text-green-600">
+              {totalChars} character{totalChars !== 1 ? "s" : ""} to practice
+            </p>
+          </div>
+          <button
+            onClick={onStart}
+            className="px-6 py-2.5 rounded-xl font-bold text-white bg-green-600 hover:bg-green-700 shadow-lg shadow-green-600/50 active:scale-95"
+          >
+            Start
+          </button>
+        </div>
       </div>
     </motion.div>
   );
-}
-// return (
-//   <>
-//     {isValidHiragana && (
-//       <div className="flex items-center justify-between gap-4">
-//         {/* hiragana */}
-//       </div>
-//     )}
-//     {isValidKatakana && (
-//       <div className="flex items-center justify-between gap-4">
-//         {/* katakana */}
-//       </div>
-//     )}
-//   </>
-// );
+} 

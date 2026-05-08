@@ -69,9 +69,29 @@ export default function Kana() {
     }));
   };
 
-  const handleStart = (type) => {
-    if (selectedGroups[type].length === 0) return;
-    const params = encodeTrainingParams(type, selectedGroups[type]);
+  const handleStart = () => {
+    const hasHira = selectedGroups.hiragana.length > 0;
+    const hasKata = selectedGroups.katakana.length > 0;
+
+    if (!hasHira && !hasKata) return;
+
+    let mode, groups;
+
+    if (hasHira && hasKata) {
+      // Both selected: combine both
+      mode = "both";
+      groups = [...selectedGroups.hiragana, ...selectedGroups.katakana];
+    } else if (hasHira) {
+      // Only hiragana
+      mode = "hiragana";
+      groups = selectedGroups.hiragana;
+    } else {
+      // Only katakana
+      mode = "katakana";
+      groups = selectedGroups.katakana;
+    }
+
+    const params = encodeTrainingParams(mode, groups);
     navigate(`/training?${params}`);
   };
 
@@ -144,8 +164,7 @@ export default function Kana() {
           selectedGroupsKatakana={selectedGroups.katakana}
           totalSelectedCharsHiragana={totalSelectedCharsHiragana}
           totalSelectedCharsKatakana={totalSelectedCharsKatakana}
-          onStartHiragana={() => handleStart("hiragana")}
-          onStartKatakana={() => handleStart("katakana")}
+          onStart={handleStart}
         /> 
     </motion.div>
   );
