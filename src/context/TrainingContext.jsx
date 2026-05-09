@@ -1,6 +1,4 @@
 import { createContext, useContext, useState } from "react";
-import Header from "../components/Header";
-import { Link, Navigate, useNavigate } from "react-router-dom";
 
 /**
  * Context for holding ephemeral training session state.
@@ -21,20 +19,11 @@ const TrainingContext = createContext(null);
  * Wrap the app (or the relevant subtree) with this provider.
  * @param {{ children: React.ReactNode }} props
  */
-export function TrainingProvider({ children }) {
+function TrainingProvider({ children }) {
   const [session, setSession] = useState(null);
-  const navigate = useNavigate();
-  // this wrong
-  function onBack(){
-    navigate("/")
-  }
+
   return (
-    <>
-      <TrainingContext.Provider value={{ session, setSession }}>
-      <Header onBack={onBack}/>
-        {children}
-      </TrainingContext.Provider>
-    </>
+    <TrainingContext.Provider value={{ session, setSession }}>{children}</TrainingContext.Provider>
   );
 }
 
@@ -43,6 +32,8 @@ export function TrainingProvider({ children }) {
  * Returns { session, setSession }.
  * @returns {{ session: object|null, setSession: Function }}
  */
-export function useTraining() {
+function useTraining() {
   return useContext(TrainingContext);
 }
+
+export { TrainingProvider, useTraining };

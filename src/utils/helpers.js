@@ -1,21 +1,10 @@
-import { nekoData } from "../data/nekoData.js";
+import nekoData from "../data/nekoData.js";
 
 /** Valid training modes */
-const VALID_MODES = ["hiragana", "katakana"];
+const VALID_MODES = ["hiragana", "katakana", "both"];
 
 /** Valid character group names */
-const VALID_GROUPS = [
-  "seion",
-  "ka",
-  "sa",
-  "ta",
-  "na",
-  "ha",
-  "ma",
-  "ya",
-  "ra",
-  "wa",
-];
+const VALID_GROUPS = ["seion", "ka", "sa", "ta", "na", "ha", "ma", "ya", "ra", "wa"];
 
 /** Filters nekoData by character type and group.
  * @param {Array} data - The full character dataset (e.g. nekoData)
@@ -39,7 +28,7 @@ export function encodeTrainingParams(mode, groups) {
   return parameters.toString();
 }
 
-/** Decodes training parameters from a URLSearchParams instance. 
+/** Decodes training parameters from a URLSearchParams instance.
  * @param {URLSearchParams} searchParams - A URLSearchParams instance
  * @returns {{ mode: string, groups: string[] }} Decoded mode and groups array
  */
@@ -51,9 +40,9 @@ export function decodeTrainingParams(searchParams) {
 }
 
 /**
- * Validates training parameters. 
+ * Validates training parameters.
  * Returns true only when:
- * - mode is "hiragana" or "katakana"
+ * - mode is "hiragana", "katakana", or "both"
  * - groups is non-empty
  * - every group is one of the 10 valid group names
  * - the filtered character set is non-empty (guards against future data changes)
@@ -68,9 +57,17 @@ export function validateTrainingParams(mode, groups) {
   if (!groups.every((g) => VALID_GROUPS.includes(g))) return false;
 
   // Guard: ensure the filtered character set is non-empty
-  const characters = nekoData.filter(
-    (c) => c.type === mode && groups.includes(c.group),
-  );
+  let characters;
+  if (mode === "both") {
+    // For "both" mode, check both hiragana and katakana
+    characters = nekoData.filter(
+      (c) => (c.type === "hiragana" || c.type === "katakana") && groups.includes(c.group),
+    );
+  } else {
+    // Single type mode
+    characters = nekoData.filter((c) => c.type === mode && groups.includes(c.group));
+  }
+
   if (characters.length === 0) return false;
 
   return true;
