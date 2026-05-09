@@ -5,8 +5,8 @@ import { validateTrainingParams, shuffle, calculateScore } from "../../utils/hel
 import { useTraining } from "../../context/TrainingContext.jsx";
 import nekoData from "../../data/nekoData.js";
 import Header from "../../components/Header.jsx";
-import LearnPhase from "../../features/training/LearnPhase.jsx";
-import QuizPhase from "../../features/training/QuizPhase.jsx";
+import LearnPhase from "../../features/training/components/LearnPhase.jsx";
+import QuizPhase from "../../features/training/components/QuizPhase.jsx";
 
 const pageVariants = {
   initial: { opacity: 0, y: 20 },
@@ -42,7 +42,7 @@ export default function TrainingMode() {
     if (validateTrainingParams(mode, groups)) {
       let loadedCharacters;
 
-      if (mode === "both") {
+      if (mode === "2Selected") {
         loadedCharacters = nekoData.filter(
           (c) => (c.type === "hiragana" || c.type === "katakana") && groups.includes(c.group),
         );
@@ -77,8 +77,7 @@ export default function TrainingMode() {
 
     // Get all characters from the same dataset (same mode) for distractors
     let sameTypeCharacters;
-    if (mode === "both") {
-      // If mode is "both", get distractors from both types
+    if (mode === "2Selected") { 
       sameTypeCharacters = nekoData.filter((c) => c.type === "hiragana" || c.type === "katakana");
     } else {
       // Single type mode
@@ -160,7 +159,7 @@ export default function TrainingMode() {
     return null;
   }
 
-  const modeLabel = mode === "both" ? "Hiragana & Katakana" : mode;
+  const modeLabel = mode === "2Selected" ? "Hiragana & Katakana" : mode;
   // const currentCharacter = session.characters[session.currentIndex];
   const totalCharacters = session.characters.length;
   // const progress = session.currentIndex + 1;

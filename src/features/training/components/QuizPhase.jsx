@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import Card from "../../components/Card.jsx";
+import Card from "../../../components/Card.jsx";
 import QuizOptions from "./QuizOptions.jsx";
 
 /**
