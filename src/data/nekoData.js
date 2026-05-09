@@ -1,4 +1,4 @@
-export const nekoData = [
+const nekoData = [
   // Hiragana - Seion (清音)
   { id: 1, char: "あ", romanization: "a", type: "hiragana", group: "seion" },
   { id: 2, char: "い", romanization: "i", type: "hiragana", group: "seion" },

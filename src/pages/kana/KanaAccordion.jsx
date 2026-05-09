@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, Check, Type, Zap, Sparkles } from "lucide-react";
 import { filterByGroup } from "../../utils/helpers.js";
@@ -103,9 +102,7 @@ export default function HiraganaAccordion({
     <div className="bg-white border-2 border-green-200 rounded-3xl overflow-hidden shadow-xl shadow-green-100">
       {/* Type Header */}
       <button
-        onClick={
-          onTypeToggle
-        }
+        onClick={onTypeToggle}
         className="w-full flex items-center justify-between p-6 bg-green-50 hover:bg-green-100 transition-colors"
       >
         <div className="flex items-center gap-4">

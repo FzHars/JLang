@@ -42,7 +42,7 @@ export function decodeTrainingParams(searchParams) {
 /**
  * Validates training parameters.
  * Returns true only when:
- * - mode is "hiragana" or "katakana"
+ * - mode is "hiragana", "katakana", or "both"
  * - groups is non-empty
  * - every group is one of the 10 valid group names
  * - the filtered character set is non-empty (guards against future data changes)
@@ -57,7 +57,17 @@ export function validateTrainingParams(mode, groups) {
   if (!groups.every((g) => VALID_GROUPS.includes(g))) return false;
 
   // Guard: ensure the filtered character set is non-empty
-  const characters = nekoData.filter((c) => c.type === mode && groups.includes(c.group));
+  let characters;
+  if (mode === "both") {
+    // For "both" mode, check both hiragana and katakana
+    characters = nekoData.filter(
+      (c) => (c.type === "hiragana" || c.type === "katakana") && groups.includes(c.group),
+    );
+  } else {
+    // Single type mode
+    characters = nekoData.filter((c) => c.type === mode && groups.includes(c.group));
+  }
+
   if (characters.length === 0) return false;
 
   return true;

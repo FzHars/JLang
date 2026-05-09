@@ -60,7 +60,7 @@ export default function QuizOptions({ options, onSelect, selected, correct }) {
       animate="visible"
     >
       <div className="grid grid-cols-1 gap-3">
-        {options.map((option, index) => (
+        {options.map((option) => (
           <motion.button
             key={option}
             variants={buttonVariants}

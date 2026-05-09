@@ -1,10 +1,11 @@
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,jsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        jp: ["Noto Sans JP", "sans-serif"],
+      },
+    },
   },
   plugins: [],
-}
+};

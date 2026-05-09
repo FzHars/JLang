@@ -19,7 +19,7 @@ const TrainingContext = createContext(null);
  * Wrap the app (or the relevant subtree) with this provider.
  * @param {{ children: React.ReactNode }} props
  */
-export function TrainingProvider({ children }) {
+function TrainingProvider({ children }) {
   const [session, setSession] = useState(null);
 
   return (
@@ -32,6 +32,8 @@ export function TrainingProvider({ children }) {
  * Returns { session, setSession }.
  * @returns {{ session: object|null, setSession: Function }}
  */
-export function useTraining() {
+function useTraining() {
   return useContext(TrainingContext);
 }
+
+export { TrainingProvider, useTraining };

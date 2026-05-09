@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { validateTrainingParams, shuffle, calculateScore } from "../../utils/helpers.js";
@@ -27,7 +27,7 @@ export default function TrainingMode() {
 
   // Read URL parameters
   const mode = searchParams.get("mode");
-  const groups = searchParams.get("groups")?.split(",") ?? [];
+  const groups = useMemo(() => searchParams.get("groups")?.split(",") ?? [], [searchParams]);
 
   // Guard: validate parameters and redirect if invalid
   useEffect(() => {
@@ -41,17 +41,15 @@ export default function TrainingMode() {
     if (validateTrainingParams(mode, groups)) {
       // Load characters matching the mode and groups
       let loadedCharacters;
-      
+
       if (mode === "both") {
         // If mode is "both", load from both hiragana and katakana
         loadedCharacters = nekoData.filter(
-          (c) => (c.type === "hiragana" || c.type === "katakana") && groups.includes(c.group)
+          (c) => (c.type === "hiragana" || c.type === "katakana") && groups.includes(c.group),
         );
       } else {
         // Single type: hiragana or katakana
-        loadedCharacters = nekoData.filter(
-          (c) => c.type === mode && groups.includes(c.group)
-        );
+        loadedCharacters = nekoData.filter((c) => c.type === mode && groups.includes(c.group));
       }
 
       // Initialize training session
@@ -67,7 +65,7 @@ export default function TrainingMode() {
   // Generate quiz options when card is revealed
   useEffect(() => {
     if (!isCardRevealed || !session || session.characters.length === 0) return;
-    
+
     // Only generate if quiz not already shown (prevent regeneration)
     if (showQuiz) return;
 
@@ -100,9 +98,15 @@ export default function TrainingMode() {
 
     // Combine correct answer with distractors and shuffle
     const allOptions = [correctAnswer, ...distractors];
-    setQuizOptions(shuffle(allOptions));
-    setShowQuiz(true);
-  }, [isCardRevealed, showQuiz, mode]);
+
+    // Use a timeout to avoid synchronous setState in effect
+    const timer = setTimeout(() => {
+      setQuizOptions(shuffle(allOptions));
+      setShowQuiz(true);
+    }, 0);
+
+    return () => clearTimeout(timer);
+  }, [isCardRevealed, showQuiz, mode, session]);
 
   const handleCardReveal = () => {
     setIsCardRevealed(true);
