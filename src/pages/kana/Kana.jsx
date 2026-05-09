@@ -28,12 +28,12 @@ export default function Kana() {
   // State Management hehe
   const [expandedTypes, setExpandedTypes] = useState({
     hiragana: true,
-    katakana: false,
+    katakana: true,
   });
 
   const [expandedCategories, setExpandedCategories] = useState({
     hiragana: ["base"],
-    katakana: [],
+    katakana: ["base"],
   });
 
   const [selectedGroups, setSelectedGroups] = useState({
@@ -79,7 +79,7 @@ export default function Kana() {
 
     if (hasHira && hasKata) {
       // Both selected: combine both
-      mode = "both";
+      mode = "2Selected";
       groups = [...selectedGroups.hiragana, ...selectedGroups.katakana];
     } else if (hasHira) {
       // Only hiragana

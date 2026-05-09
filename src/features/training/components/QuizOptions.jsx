@@ -60,9 +60,9 @@ export default function QuizOptions({ options, onSelect, selected, correct }) {
       animate="visible"
     >
       <div className="grid grid-cols-1 gap-3">
-        {options.map((option) => (
+        {options.map((option, index) => (
           <motion.button
-            key={option}
+            key={`${option}-${index}`}
             variants={buttonVariants}
             onClick={() => !hasAnswered && onSelect(option)}
             disabled={hasAnswered}
