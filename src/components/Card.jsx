@@ -11,8 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function Card({ character, isRevealed, onReveal }) {
   return (
     <motion.div
-      className="relative w-full max-w-sm mx-auto aspect-[3/4] cursor-pointer"
-      onClick={onReveal}
+      className="relative w-full max-w-sm mx-auto aspect-[2/1]"
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       initial={{ opacity: 0, y: 20 }}
@@ -48,15 +47,12 @@ export default function Card({ character, isRevealed, onReveal }) {
                 exit={{ opacity: 0, rotateY: 90 }}
                 transition={{ duration: 0.3 }}
                 className="text-center"
-              >
-                <div className="text-6xl md:text-7xl font-bold text-green-700 mb-2">
-                  {character.romanization}
-                </div>
-                <div className="text-4xl md:text-5xl font-bold text-green-900 mb-4 font-jp opacity-60">
+              > 
+                <div className="text-6xl md:text-7xl font-bold text-green-700 mb-4 font-jp">
                   {character.char}
                 </div>
-                <div className="text-sm text-green-600 font-medium capitalize">
-                  {character.type} • {character.group}
+                <div className="text-sm text-green-600 font-medium capitalize opacity-40">
+                  • {character.type} • 
                 </div>
               </motion.div>
             )}
