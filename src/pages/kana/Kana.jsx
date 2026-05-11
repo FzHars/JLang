@@ -32,8 +32,8 @@ export default function Kana() {
   });
 
   const [expandedCategories, setExpandedCategories] = useState({
-    hiragana: ["base"],
-    katakana: ["base"],
+    hiragana: [],
+    katakana: [],
   });
 
   const [selectedGroups, setSelectedGroups] = useState({
