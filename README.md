@@ -1,4 +1,4 @@
-# NekoMoji
+# NekoKana 😺
 
 Learn Japanese characters (hiragana and katakana) through interactive flashcards and quizzes.
 
