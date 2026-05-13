@@ -2,6 +2,10 @@
 
 Learn Japanese characters (hiragana and katakana) through interactive flashcards and quizzes.
 
+## Inspiration
+
+This project is inspired by the excellent teaching methodologies of [KanaDojo](https://kanadojo.com). Check them out for more Japanese learning resources!
+
 ## Features
 
 - **Interactive Flashcards** - Tap cards to reveal romanization and memorize characters
@@ -139,9 +143,6 @@ Quiz options are dynamically generated with:
 - 3 random distractors from the same character type
 - Shuffled order each question
 
-## Inspiration
-
-This project is inspired by the excellent teaching methodologies of [KanaDojo](https://kanadojo.com). Check them out for more Japanese learning resources!
 
 ## Future Improvements
 
