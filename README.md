@@ -69,7 +69,7 @@ src/
 ```bash
 npm install
 ```
-
+<!--
 ### Development
 
 ```bash
@@ -108,6 +108,7 @@ This ensures all routes are served through React Router, not as static file requ
 2. Connect repo to Vercel
 3. Vercel auto-detects config and deploys
 4. View live at your Vercel domain
+-->
 
 ## How It Works
 
